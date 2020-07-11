@@ -1,15 +1,13 @@
 //start up file within Node project is typically called index.js
-
 //create express application 
 //this syntax is common.js module (use this for server side imports)
 //for client side imports, use "import" syntax
 const express = require('express');
-const app = express(); //creates a new application that represents a running express app.  can have more than one.  route handlers will be registered with this app object.
+require('./services/passport');
 
-//create a route handler and associate it with a given route
-app.get('/', (req, res) => {
-    res.send({hi: 'there' });
-});
+const app = express(); //creates a new application that represents a running express app.  can have more than one.  route handlers will be registered with this app object.
+require('./routes/authRoutes')(app); //require the authRoutes file and it returns the function with the app object
+//Client ID and Client Secret are directly from Google's OAuth service.
 
 //do pre-deployment checklist for heroku (steps 1 - 4)
 //1. dynamically figure out what port to listen to on heroku
@@ -27,6 +25,9 @@ const PORT = process.env.PORT || 5000; //getting port environment variable from 
 app.listen(PORT); //go to localhost:5000/ in browser to receive the hi:there message
 
 //go through heroku first time deployment steps.
+
+
+
 
 
 
